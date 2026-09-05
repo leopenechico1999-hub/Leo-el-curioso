@@ -2,26 +2,79 @@ package com.leo.adrian.nuevo;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.view.Gravity;
 import android.widget.*;
 
 public class MainActivity extends Activity {
-    ImageView image; TextView story; Button next, restart; int step=0;
-    int[] imgs = {R.drawable.scene1,R.drawable.scene2,R.drawable.scene3,R.drawable.scene4,R.drawable.scene5,R.drawable.scene6,R.drawable.scene7};
-    String[] texts = {
-      "Leo llega a casa cansado. Al entrar, lo primero que ve es a Adrián.",
-      "Leo se queda mirando su celular y piensa en Adrián. Después le manda un mensaje.",
-      "Leo: ¿Jugamos Free Fire?\nAdrián: Sí, vamos.",
-      "Empieza la partida. Leo juega bastante mal... y Adrián está INSANO.",
-      "Leo cae en combate. Adrián corre para revivirlo.\nLeo: Gracias, amor.\nAdrián se sonroja.",
-      "Al día siguiente vuelven a encontrarse. La historia da un salto de tiempo y la escena queda en tono romántico, sin mostrar contenido íntimo.",
-      "Leo: ¡¡¡AHHHHH!!!\n\nFIN 😂\n\nATENTAMENTE: ATÚN"
+
+    LinearLayout pantalla;
+    TextView historia;
+    Button siguiente;
+    int escena = 0;
+
+    String[] textos = {
+        "🎮 LEO Y ADRIÁN\n\nLeo llega a casa cansado y se encuentra con Adrián.",
+        "📱 Leo se queda pensando en Adrián mientras mira su celular.",
+        "🔥 Leo: ¿Jugamos Free Fire?",
+        "😎 Adrián: ¡Sí!\n\nAdrián resulta ser insano en Free Fire, mientras Leo es bastante manco 😂.",
+        "💥 ¡LEO FUE DERRIBADO!\n\nAdrián corre para revivirlo.",
+        "❤️ Leo: Gracias, amor.\n\nAdrián se sonroja. 😳",
+        "🏠 Al día siguiente, Leo visita a Adrián.\n\nPasan el día juntos y su amistad se vuelve todavía más especial.",
+        "😂 FIN\n\nLEO ES GEY\n\nAtentamente: ATÚN",
     };
-    @Override public void onCreate(Bundle b){super.onCreate(b); setContentView(R.layout.activity_main);
-      image=findViewById(R.id.sceneImage); story=findViewById(R.id.story); next=findViewById(R.id.next); restart=findViewById(R.id.restart);
-      show();
-      next.setOnClickListener(v->{ if(step<texts.length-1){step++;show();} else {next.setVisibility(View.GONE);restart.setVisibility(View.VISIBLE);} });
-      restart.setOnClickListener(v->{step=0;restart.setVisibility(View.GONE);next.setVisibility(View.VISIBLE);show();});
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mostrarEscena();
     }
-    void show(){ image.setImageResource(imgs[step]); story.setText(texts[step]); }
+
+    void mostrarEscena() {
+
+        pantalla = new LinearLayout(this);
+        pantalla.setOrientation(LinearLayout.VERTICAL);
+        pantalla.setGravity(Gravity.CENTER);
+        pantalla.setPadding(30, 30, 30, 30);
+        pantalla.setBackgroundColor(Color.BLACK);
+
+        historia = new TextView(this);
+        historia.setText(textos[escena]);
+        historia.setTextColor(Color.WHITE);
+        historia.setTextSize(24);
+        historia.setGravity(Gravity.CENTER);
+        historia.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+
+        pantalla.addView(historia,
+                new LinearLayout.LayoutParams(
+                        -1, 0, 1));
+
+        siguiente = new Button(this);
+
+        if (escena == textos.length - 1) {
+            siguiente.setText("🔄 JUGAR DE NUEVO");
+        } else {
+            siguiente.setText("➡️ SIGUIENTE");
+        }
+
+        siguiente.setTextSize(18);
+
+        siguiente.setOnClickListener(v -> {
+
+            if (escena == textos.length - 1) {
+                escena = 0;
+                mostrarEscena();
+            } else {
+                escena++;
+                mostrarEscena();
+            }
+        });
+
+        pantalla.addView(siguiente,
+                new LinearLayout.LayoutParams(
+                        -1, 80));
+
+        setContentView(pantalla);
+    }
 }
