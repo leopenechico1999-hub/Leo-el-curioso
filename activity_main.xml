@@ -1,0 +1,14 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ android:orientation="vertical" android:padding="18dp" android:gravity="center"
+ android:layout_width="match_parent" android:layout_height="match_parent">
+ <ImageView android:id="@+id/sceneImage" android:layout_width="match_parent" android:layout_height="0dp"
+  android:layout_weight="1" android:scaleType="centerInside" android:contentDescription="Escena"/>
+ <TextView android:id="@+id/story" android:layout_width="match_parent" android:layout_height="wrap_content"
+  android:textSize="20sp" android:padding="12dp" android:gravity="center"/>
+ <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+  android:gravity="center">
+  <Button android:id="@+id/next" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SIGUIENTE"/>
+  <Button android:id="@+id/restart" android:layout_width="wrap_content" android:layout_height="wrap_content"
+   android:text="JUGAR DE NUEVO" android:visibility="gone"/>
+ </LinearLayout>
+</LinearLayout>
